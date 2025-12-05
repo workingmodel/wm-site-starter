@@ -1,0 +1,364 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --background: 0 0% 100%;
+    --foreground: 0 0% 3.9%;
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 3.9%;
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 3.9%;
+    --primary: 0 0% 9%;
+    --primary-foreground: 0 0% 98%;
+    --secondary: 0 0% 96.1%;
+    --secondary-foreground: 0 0% 9%;
+    --muted: 0 0% 96.1%;
+    --muted-foreground: 0 0% 45.1%;
+    --accent: 0 0% 96.1%;
+    --accent-foreground: 0 0% 9%;
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 89.8%;
+    --input: 0 0% 89.8%;
+    --ring: 0 0% 3.9%;
+    --radius: 0.5rem;
+
+    /* Working Model Design Tokens */
+    --color-black: #000000;
+    --color-white: #ffffff;
+    --pattern-fg: rgba(0, 0, 0, 0.2);
+    --accent-yellow: #ffe835;
+  }
+
+  .dark {
+    --background: 0 0% 3.9%;
+    --foreground: 0 0% 98%;
+    --card: 0 0% 3.9%;
+    --card-foreground: 0 0% 98%;
+    --popover: 0 0% 3.9%;
+    --popover-foreground: 0 0% 98%;
+    --primary: 0 0% 98%;
+    --primary-foreground: 0 0% 9%;
+    --secondary: 0 0% 14.9%;
+    --secondary-foreground: 0 0% 98%;
+    --muted: 0 0% 14.9%;
+    --muted-foreground: 0 0% 63.9%;
+    --accent: 0 0% 14.9%;
+    --accent-foreground: 0 0% 98%;
+    --destructive: 0 62.8% 30.6%;
+    --destructive-foreground: 0 0% 98%;
+    --border: 0 0% 14.9%;
+    --input: 0 0% 14.9%;
+    --ring: 0 0% 83.1%;
+
+    /* Dark mode pattern foreground */
+    --pattern-fg: rgba(255, 255, 255, 0.25);
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+  html {
+    scroll-behavior: smooth;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-family: 'Stack Sans Text', sans-serif;
+    font-weight: 200;
+  }
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Stack Sans Headline', sans-serif;
+    font-weight: 400;
+  }
+}
+
+/* Gutter Patterns */
+.gutter-pattern {
+  background-image: repeating-linear-gradient(
+    45deg,
+    var(--pattern-fg) 0,
+    var(--pattern-fg) 0.5px,
+    transparent 0.5px,
+    transparent 7px,
+    var(--pattern-fg) 7px,
+    var(--pattern-fg) 7.5px,
+    transparent 7.5px,
+    transparent 14px
+  );
+  background-size: 9.9px 9.9px;
+  background-attachment: fixed;
+}
+
+.gutter-pattern-right {
+  background-image: repeating-linear-gradient(
+    -45deg,
+    var(--pattern-fg) 0,
+    var(--pattern-fg) 0.5px,
+    transparent 0.5px,
+    transparent 7px,
+    var(--pattern-fg) 7px,
+    var(--pattern-fg) 7.5px,
+    transparent 7.5px,
+    transparent 14px
+  );
+  background-size: 9.9px 9.9px;
+  background-attachment: fixed;
+}
+
+/* Separator Pattern */
+.separator-pattern {
+  background-image: 
+    repeating-linear-gradient(
+      45deg,
+      var(--pattern-fg) 0,
+      var(--pattern-fg) 0.5px,
+      transparent 0.5px,
+      transparent 7px,
+      var(--pattern-fg) 7px,
+      var(--pattern-fg) 7.5px,
+      transparent 7.5px,
+      transparent 14px
+    ),
+    repeating-linear-gradient(
+      -45deg,
+      var(--pattern-fg) 0,
+      var(--pattern-fg) 0.5px,
+      transparent 0.5px,
+      transparent 7px,
+      var(--pattern-fg) 7px,
+      var(--pattern-fg) 7.5px,
+      transparent 7.5px,
+      transparent 14px
+    );
+  background-size: 9.9px 9.9px, 9.9px 9.9px;
+  background-attachment: fixed;
+}
+
+/* Section Responsive */
+.section-responsive {
+  position: relative;
+  overflow: visible;
+}
+
+/* Blueprint Border */
+.blueprint-border {
+  position: relative;
+  border: 1px solid var(--pattern-fg);
+  padding: 12.5px;
+  transition: transform 0.3s ease-in-out;
+}
+
+.blueprint-border:hover:not(.no-hover) {
+  transform: scale(1.05);
+  transform-origin: center;
+}
+
+.blueprint-border.no-hover:hover,
+.blueprint-border.no-hover.group:hover {
+  box-shadow: none;
+  transform: none;
+  transition: none;
+}
+
+.blueprint-corner {
+  position: absolute;
+  background: var(--pattern-fg);
+  pointer-events: none;
+}
+
+.blueprint-corner-top-left-v {
+  top: -11px;
+  left: -1px;
+  width: 1px;
+  height: 10px;
+}
+
+.blueprint-corner-top-left-h {
+  top: -1px;
+  left: -11px;
+  width: 10px;
+  height: 1px;
+}
+
+.blueprint-corner-top-right-v {
+  top: -11px;
+  right: -1px;
+  width: 1px;
+  height: 10px;
+}
+
+.blueprint-corner-top-right-h {
+  top: -1px;
+  right: -11px;
+  width: 10px;
+  height: 1px;
+}
+
+.blueprint-corner-bottom-left-v {
+  bottom: -11px;
+  left: -1px;
+  width: 1px;
+  height: 10px;
+}
+
+.blueprint-corner-bottom-left-h {
+  bottom: -1px;
+  left: -11px;
+  width: 10px;
+  height: 1px;
+}
+
+.blueprint-corner-bottom-right-v {
+  bottom: -11px;
+  right: -1px;
+  width: 1px;
+  height: 10px;
+}
+
+.blueprint-corner-bottom-right-h {
+  bottom: -1px;
+  right: -11px;
+  width: 10px;
+  height: 1px;
+}
+
+/* Link Highlight Animation */
+.link-highlight {
+  position: relative;
+  display: inline-block;
+}
+
+.link-highlight:hover::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  background-color: var(--accent-yellow);
+  z-index: -1;
+  animation: highlightSlide 0.3s ease-out;
+}
+
+@keyframes highlightSlide {
+  from {
+    transform: scaleX(0);
+    transform-origin: left;
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+/* Fade In Animations */
+.fade-in {
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.fade-in-delay-1 {
+  animation-delay: 0.2s;
+  opacity: 0;
+}
+
+.fade-in-delay-2 {
+  animation-delay: 0.4s;
+  opacity: 0;
+}
+
+.fade-in-delay-3 {
+  animation-delay: 0.6s;
+  opacity: 0;
+}
+
+.fade-in-delay-4 {
+  animation-delay: 0.8s;
+  opacity: 0;
+}
+
+.fade-in-delay-5 {
+  animation-delay: 1.0s;
+  opacity: 0;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Contact Links Hover Pattern */
+.contact-links-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+}
+
+.group:hover .contact-links-container {
+  max-height: 300px;
+}
+
+.contact-links {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out 0.1s;
+}
+
+.group:hover .contact-links {
+  opacity: 1;
+}
+
+.pricing-links-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+}
+
+.group:hover .pricing-links-container {
+  max-height: 300px;
+}
+
+.pricing-links {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out 0.1s;
+}
+
+.group:hover .pricing-links {
+  opacity: 1;
+}
+
+.case-studies-links-container {
+  max-height: 0;
+  overflow: hidden;
+  transition: max-height 0.4s ease-in-out;
+}
+
+.group:hover .case-studies-links-container {
+  max-height: 300px;
+}
+
+.case-studies-links {
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out 0.1s;
+}
+
+.group:hover .case-studies-links {
+  opacity: 1;
+}
+
+/* Icon Hover Effects */
+.icon-hover {
+  transition: transform 0.3s ease-in-out;
+}
+
+.group:hover .icon-hover {
+  transform: scale(1.1);
+}
+

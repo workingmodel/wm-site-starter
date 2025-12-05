@@ -1,7 +1,24 @@
 {
   "name": "wm-site-starter",
   "version": "1.0.0",
-  "private": true,
+  "description": "A modern Next.js site starter with Tailwind CSS, GSAP animations, and shadcn/ui components",
+  "author": "Working Model Inc",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/workingmodel/wm-site-starter.git"
+  },
+  "keywords": [
+    "nextjs",
+    "next.js",
+    "tailwind",
+    "gsap",
+    "shadcn",
+    "starter",
+    "template",
+    "typescript",
+    "react"
+  ],
   "scripts": {
     "dev": "next dev",
     "build": "next build",

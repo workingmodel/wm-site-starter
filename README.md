@@ -4,6 +4,8 @@ A modern, flexible Next.js site starter with Tailwind CSS, GSAP animations, and 
 
 **Created by [Working Model Inc](https://workingmodel.co)**
 
+[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 ## Features
 
 - ⚡ **Next.js 14** with App Router and TypeScript
@@ -64,9 +66,10 @@ npm start
 │   └── gsap.ts          # GSAP configuration
 ├── config/              # Configuration files
 │   └── site.ts          # Site configuration
-└── imgs/                # Static images
-    ├── favicons/        # Favicon files
-    └── wm-logo-blk.svg  # Logo
+└── public/              # Static assets
+    └── imgs/            # Images
+        ├── favicons/    # Favicon files
+        └── wm-logo-blk.svg  # Logo
 ```
 
 ## Configuration
@@ -114,18 +117,6 @@ The starter includes a comprehensive color system using CSS variables:
 - **Headings**: Stack Sans Headline (weight: 400)
 
 ### Components
-
-#### BlueprintBorder
-
-A decorative border component with corner extensions:
-
-```tsx
-import { BlueprintBorder } from "@/components/ui/BlueprintBorder"
-
-<BlueprintBorder>
-  <p>Your content here</p>
-</BlueprintBorder>
-```
 
 #### Separator
 
@@ -188,6 +179,45 @@ function MyComponent() {
 
   return <div className="element">Scroll animated</div>
 }
+```
+
+## Animation Components
+
+### SlideInOnView
+
+Slides content in from any direction when it enters the viewport:
+
+```tsx
+import { SlideInOnView } from "@/components/animations/SlideInOnView"
+
+<SlideInOnView direction="up" delay={0.2}>
+  <h2>This will slide in from bottom</h2>
+</SlideInOnView>
+```
+
+### StaggerSlideIn
+
+Staggers multiple children with slide-in animations:
+
+```tsx
+import { StaggerSlideIn } from "@/components/animations/StaggerSlideIn"
+
+<StaggerSlideIn direction="up" stagger={0.15} className="grid grid-cols-2 gap-4">
+  <div>Item 1</div>
+  <div>Item 2</div>
+</StaggerSlideIn>
+```
+
+### ParallaxText
+
+Adds parallax scrolling effect to text:
+
+```tsx
+import { ParallaxText } from "@/components/animations/ParallaxText"
+
+<ParallaxText speed={0.2}>
+  <h1>Parallax heading</h1>
+</ParallaxText>
 ```
 
 ## Layout System
@@ -263,9 +293,20 @@ This starter template was created by [Working Model Inc](https://workingmodel.co
 
 ## License
 
-MIT
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
 
 ## Support
 
-For issues and questions, please open an issue on GitHub.
+For issues and questions, please open an issue on [GitHub](https://github.com/workingmodel/wm-site-starter/issues).
+
+## Acknowledgments
+
+- Built with [Next.js](https://nextjs.org/)
+- Styled with [Tailwind CSS](https://tailwindcss.com/)
+- Animated with [GSAP](https://greensock.com/gsap/)
+- Components from [shadcn/ui](https://ui.shadcn.com/)
 

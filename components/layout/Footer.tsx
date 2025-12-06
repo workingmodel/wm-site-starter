@@ -12,7 +12,7 @@ export function Footer() {
               rel="noopener noreferrer" 
               className="link-highlight"
             >
-              <p className="text-base md:text-sm text-center mt-[60px]">
+              <p className="text-base md:text-sm text-center">
                 Brought to you by Working Model Inc
               </p>
             </a>

@@ -10,7 +10,7 @@ A modern, flexible Next.js site starter with Tailwind CSS, GSAP animations, and 
 
 - ⚡ **Next.js 14** with App Router and TypeScript
 - 🎨 **Tailwind CSS** with custom design tokens and patterns
-- 🎭 **GSAP** animations with ScrollTrigger support
+- 🎭 **GSAP** + **@gsap/react** animations with ScrollTrigger support
 - 🧩 **shadcn/ui** components for rapid development
 - 📱 Fully responsive design
 - 🎯 SEO-friendly structure
@@ -77,6 +77,7 @@ npm start
 ### Site Configuration
 
 Edit `config/site.ts` to customize:
+
 - Site name and description
 - Navigation links
 - Social media links
@@ -85,6 +86,7 @@ Edit `config/site.ts` to customize:
 ### Theme Customization
 
 Edit `app/globals.css` to customize:
+
 - Colors (CSS variables)
 - Typography
 - Spacing
@@ -93,6 +95,7 @@ Edit `app/globals.css` to customize:
 ### Tailwind Configuration
 
 Edit `tailwind.config.ts` to customize:
+
 - Theme colors
 - Breakpoints
 - Animations
@@ -123,9 +126,9 @@ The starter includes a comprehensive color system using CSS variables:
 A decorative separator with crosshatch pattern:
 
 ```tsx
-import { Separator } from "@/components/ui/Separator"
+import { Separator } from '@/components/ui/Separator'
 
-<Separator />
+;<Separator />
 ```
 
 #### FadeInOnView
@@ -133,9 +136,9 @@ import { Separator } from "@/components/ui/Separator"
 A component that fades in when scrolled into view:
 
 ```tsx
-import { FadeInOnView } from "@/components/animations/FadeInOnView"
+import { FadeInOnView } from '@/components/animations/FadeInOnView'
 
-<FadeInOnView delay={0.2}>
+;<FadeInOnView delay={0.2}>
   <h2>This will fade in</h2>
 </FadeInOnView>
 ```
@@ -145,12 +148,12 @@ import { FadeInOnView } from "@/components/animations/FadeInOnView"
 ### Using useGSAP Hook
 
 ```tsx
-import { useGSAP } from "@/hooks/useGSAP"
-import { gsap } from "@/lib/gsap"
+import { useGSAP } from '@/hooks/useGSAP'
+import { gsap } from '@/lib/gsap'
 
 function MyComponent() {
   useGSAP(() => {
-    gsap.to(".element", {
+    gsap.to('.element', {
       x: 100,
       duration: 1,
     })
@@ -163,21 +166,20 @@ function MyComponent() {
 ### Using useScrollAnimation Hook
 
 ```tsx
-import { useScrollAnimation } from "@/hooks/useScrollAnimation"
-import { gsap } from "@/lib/gsap"
+import { useScrollAnimation } from '@/hooks/useScrollAnimation'
+import { ScrollTrigger } from '@/lib/gsap'
 
 function MyComponent() {
-  const animation = gsap.to(".element", {
-    x: 100,
-    duration: 1,
-  })
-
-  useScrollAnimation(animation, {
-    start: "top 80%",
+  const triggerRef = useScrollAnimation(myAnimation, {
+    start: 'top 80%',
     scrub: true,
   })
 
-  return <div className="element">Scroll animated</div>
+  return (
+    <div ref={triggerRef} className="element">
+      Scroll animated
+    </div>
+  )
 }
 ```
 
@@ -188,55 +190,54 @@ function MyComponent() {
 Slides content in from any direction when it enters the viewport:
 
 ```tsx
-import { SlideInOnView } from "@/components/animations/SlideInOnView"
+import { SlideInOnView } from '@/components/animations/SlideInOnView'
 
-<SlideInOnView direction="up" delay={0.2}>
+;<SlideInOnView direction="up" delay={0.2} distance={60}>
   <h2>This will slide in from bottom</h2>
 </SlideInOnView>
 ```
+
+Props: `direction` (`"up" | "down" | "left" | "right"`, default `"up"`), `delay` (s), `distance` (px, default `50`), `className`.
 
 ### StaggerSlideIn
 
 Staggers multiple children with slide-in animations:
 
 ```tsx
-import { StaggerSlideIn } from "@/components/animations/StaggerSlideIn"
+import { StaggerSlideIn } from '@/components/animations/StaggerSlideIn'
 
-<StaggerSlideIn direction="up" stagger={0.15} className="grid grid-cols-2 gap-4">
+;<StaggerSlideIn direction="up" stagger={0.15} distance={60} className="grid grid-cols-2 gap-4">
   <div>Item 1</div>
   <div>Item 2</div>
 </StaggerSlideIn>
 ```
+
+Props: `direction`, `stagger` (s, default `0.1`), `distance` (px, default `50`), `delay`, `className`.
 
 ### ParallaxText
 
 Adds parallax scrolling effect to text:
 
 ```tsx
-import { ParallaxText } from "@/components/animations/ParallaxText"
+import { ParallaxText } from '@/components/animations/ParallaxText'
 
-<ParallaxText speed={0.2}>
+;<ParallaxText speed={0.2}>
   <h1>Parallax heading</h1>
 </ParallaxText>
 ```
 
 ## Layout System
 
-The starter includes a gutter system with left and right decorative borders:
+The starter includes a gutter system with left and right decorative borders. Gutters are rendered automatically by `SiteLayout` in `app/layout.tsx` — no per-page setup needed. New pages just need `id="main-content"` and the standard margin classes:
 
 ```tsx
-<main className="relative">
-  {/* Left Gutter */}
-  <div className="fixed top-0 bottom-0 left-0 w-12 border-x border-x-[var(--pattern-fg)] gutter-pattern z-0"></div>
-  
-  {/* Right Gutter */}
-  <div className="fixed top-0 bottom-0 right-0 w-12 border-x border-x-[var(--pattern-fg)] gutter-pattern-right z-0"></div>
-  
-  {/* Main Content */}
-  <div className="relative z-10 ml-12 mr-12">
-    {/* Your content */}
-  </div>
-</main>
+export default function MyPage() {
+  return (
+    <main id="main-content" className="relative z-10 ml-12 mr-12 pt-16">
+      {/* Your content */}
+    </main>
+  )
+}
 ```
 
 ## Adding shadcn/ui Components
@@ -248,6 +249,7 @@ npx shadcn@latest add [component-name]
 ```
 
 For example:
+
 ```bash
 npx shadcn@latest add card
 npx shadcn@latest add dialog
@@ -309,4 +311,3 @@ For issues and questions, please open an issue on [GitHub](https://github.com/wo
 - Styled with [Tailwind CSS](https://tailwindcss.com/)
 - Animated with [GSAP](https://greensock.com/gsap/)
 - Components from [shadcn/ui](https://ui.shadcn.com/)
-

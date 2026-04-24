@@ -43,7 +43,7 @@
 - [ ] Add your own pages
 
 ### Components
-- [ ] Add more shadcn/ui components: `npx shadcn-ui@latest add [component]`
+- [ ] Add more shadcn/ui components: `npx shadcn@latest add [component]`
 - [ ] Customize existing components in `components/ui/`
 - [ ] Create your own components
 
@@ -52,15 +52,15 @@
 ### Adding a New Page
 
 1. Create a new file in `app/[page-name]/page.tsx`
-2. Use the layout pattern from existing pages:
+2. The gutters and header/footer are handled by `app/layout.tsx` automatically — just export your page content:
    ```tsx
-   <main className="relative">
-     <div className="fixed top-0 bottom-0 left-0 w-12 ..."></div>
-     <div className="fixed top-0 bottom-0 right-0 w-12 ..."></div>
-     <div className="relative z-10 ml-12 mr-12 pt-16">
-       {/* Your content */}
-     </div>
-   </main>
+   export default function MyPage() {
+     return (
+       <main id="main-content" className="relative z-10 ml-12 mr-12 pt-16">
+         {/* Your content */}
+       </main>
+     )
+   }
    ```
 
 ### Adding GSAP Animation
@@ -85,9 +85,9 @@ export default function MyPage() {
 ### Adding shadcn/ui Component
 
 ```bash
-npx shadcn-ui@latest add card
-npx shadcn-ui@latest add dialog
-npx shadcn-ui@latest add input
+npx shadcn@latest add card
+npx shadcn@latest add dialog
+npx shadcn@latest add input
 ```
 
 ## Project Structure Overview

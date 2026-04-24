@@ -138,10 +138,59 @@
   background-attachment: fixed;
 }
 
-/* Section Responsive */
+/* Section Responsive — circle + crosshair corner decorations */
 .section-responsive {
   position: relative;
   overflow: visible;
+}
+
+.section-responsive::before {
+  content: '';
+  position: absolute;
+  top: 30px;
+  left: 30px;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(var(--pattern-fg), var(--pattern-fg)),
+    linear-gradient(var(--pattern-fg), var(--pattern-fg)),
+    radial-gradient(circle at 22px 22px,
+      transparent 11px,
+      var(--pattern-fg) 11px, var(--pattern-fg) 12px,
+      transparent 12px);
+  background-size: 1px 44px, 44px 1px, 64px 64px;
+  background-position: 22px 0px, 0px 22px, 0 0;
+  background-repeat: no-repeat;
+}
+
+.section-responsive::after {
+  content: '';
+  position: absolute;
+  top: 30px;
+  right: 30px;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(var(--pattern-fg), var(--pattern-fg)),
+    linear-gradient(var(--pattern-fg), var(--pattern-fg)),
+    radial-gradient(circle at 22px 22px,
+      transparent 11px,
+      var(--pattern-fg) 11px, var(--pattern-fg) 12px,
+      transparent 12px);
+  background-size: 1px 44px, 44px 1px, 64px 64px;
+  background-position: 22px 0px, 0px 22px, 0 0;
+  background-repeat: no-repeat;
+}
+
+@media (max-width: 768px) {
+  .section-responsive::before,
+  .section-responsive::after {
+    display: none;
+  }
 }
 
 /* Blueprint Border */
@@ -295,60 +344,34 @@
   }
 }
 
-/* Contact Links Hover Pattern */
-.contact-links-container {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-in-out;
-}
-
-.group:hover .contact-links-container {
-  max-height: 300px;
-}
-
-.contact-links {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out 0.1s;
-}
-
-.group:hover .contact-links {
-  opacity: 1;
-}
-
-.pricing-links-container {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.4s ease-in-out;
-}
-
-.group:hover .pricing-links-container {
-  max-height: 300px;
-}
-
-.pricing-links {
-  opacity: 0;
-  transition: opacity 0.3s ease-in-out 0.1s;
-}
-
-.group:hover .pricing-links {
-  opacity: 1;
-}
-
+/* Hover Reveal Pattern — generic, use for any sidebar reveal */
+.reveal-links-container,
+.contact-links-container,
+.pricing-links-container,
 .case-studies-links-container {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.4s ease-in-out;
 }
 
+.group:hover .reveal-links-container,
+.group:hover .contact-links-container,
+.group:hover .pricing-links-container,
 .group:hover .case-studies-links-container {
   max-height: 300px;
 }
 
+.reveal-links,
+.contact-links,
+.pricing-links,
 .case-studies-links {
   opacity: 0;
   transition: opacity 0.3s ease-in-out 0.1s;
 }
 
+.group:hover .reveal-links,
+.group:hover .contact-links,
+.group:hover .pricing-links,
 .group:hover .case-studies-links {
   opacity: 1;
 }

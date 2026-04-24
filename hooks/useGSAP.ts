@@ -13,7 +13,7 @@ export function useGSAP(
   callback: (context: gsap.Context) => void | (() => void),
   options: UseGSAPOptions = {}
 ) {
-  const { scope, dependencies = [], revertOnUpdate = true } = options
+  const { scope, dependencies = [] } = options
   const scopeRef = useRef<HTMLElement | null>(null)
   const ctxRef = useRef<gsap.Context | null>(null)
 

@@ -19,6 +19,12 @@ const config = {
     },
     extend: {
       colors: {
+        /* Working Model brand tokens */
+        "accent-yellow": "var(--accent-yellow)",
+        "pattern-fg": "var(--pattern-fg)",
+        "wm-black": "var(--color-black)",
+        "wm-white": "var(--color-white)",
+        /* shadcn/ui tokens */
         border: "hsl(var(--border))",
         input: "hsl(var(--input))",
         ring: "hsl(var(--ring))",
@@ -52,6 +58,16 @@ const config = {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+      },
+      fontFamily: {
+        headline: ['"Stack Sans Headline"', "sans-serif"],
+        body: ['"Stack Sans Text"', "sans-serif"],
+      },
+      spacing: {
+        section: "36px",
+        icon: "20px",
+        "hero-top": "140px",
+        footer: "80px",
       },
       borderRadius: {
         lg: "var(--radius)",

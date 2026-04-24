@@ -23,7 +23,7 @@ export function ParallaxSection({
     gsap.registerPlugin(ScrollTrigger)
 
     const animation = gsap.to(element, {
-      y: (i, el) => {
+      y: (_i, _el) => {
         return -(window.innerHeight * speed)
       },
       ease: "none",

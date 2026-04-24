@@ -244,13 +244,13 @@ The starter includes a gutter system with left and right decorative borders:
 To add more shadcn/ui components:
 
 ```bash
-npx shadcn-ui@latest add [component-name]
+npx shadcn@latest add [component-name]
 ```
 
 For example:
 ```bash
-npx shadcn-ui@latest add card
-npx shadcn-ui@latest add dialog
+npx shadcn@latest add card
+npx shadcn@latest add dialog
 ```
 
 ## Customization

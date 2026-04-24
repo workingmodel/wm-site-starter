@@ -4,19 +4,21 @@ import { ReactNode, useRef, useEffect } from "react"
 import { gsap, ScrollTrigger } from "@/lib/gsap"
 
 interface StaggerSlideInProps {
-  children: ReactNode[]
+  children: ReactNode
   direction?: "left" | "right" | "up" | "down"
+  distance?: number
   delay?: number
   stagger?: number
   className?: string
 }
 
-export function StaggerSlideIn({ 
-  children, 
-  direction = "up", 
+export function StaggerSlideIn({
+  children,
+  direction = "up",
+  distance = 50,
   delay = 0,
   stagger = 0.1,
-  className = "" 
+  className = "",
 }: StaggerSlideInProps) {
   const ref = useRef<HTMLDivElement>(null)
 
@@ -30,10 +32,10 @@ export function StaggerSlideIn({
 
     // Set initial position based on direction
     const initialPosition: Record<string, { x?: number; y?: number; opacity: number }> = {
-      left: { x: -50, opacity: 0 },
-      right: { x: 50, opacity: 0 },
-      up: { y: 50, opacity: 0 },
-      down: { y: -50, opacity: 0 },
+      left: { x: -distance, opacity: 0 },
+      right: { x: distance, opacity: 0 },
+      up: { y: distance, opacity: 0 },
+      down: { y: -distance, opacity: 0 },
     }
 
     const animation = gsap.fromTo(
@@ -63,7 +65,7 @@ export function StaggerSlideIn({
         }
       })
     }
-  }, [direction, delay, stagger])
+  }, [direction, distance, delay, stagger])
 
   return (
     <div ref={ref} className={className}>

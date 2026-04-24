@@ -1,7 +1,8 @@
-"use client"
+'use client'
 
-import { ReactNode, useRef, useEffect } from "react"
-import { gsap, ScrollTrigger } from "@/lib/gsap"
+import { ReactNode, useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 
 interface ParallaxSectionProps {
   children: ReactNode
@@ -9,41 +10,25 @@ interface ParallaxSectionProps {
   className?: string
 }
 
-export function ParallaxSection({ 
-  children, 
-  speed = 0.5,
-  className = "" 
-}: ParallaxSectionProps) {
+export function ParallaxSection({ children, speed = 0.5, className = '' }: ParallaxSectionProps) {
   const ref = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const element = ref.current
-    if (!element) return
-
-    gsap.registerPlugin(ScrollTrigger)
-
-    const animation = gsap.to(element, {
-      y: (_i, _el) => {
-        return -(window.innerHeight * speed)
-      },
-      ease: "none",
-      scrollTrigger: {
-        trigger: element,
-        start: "top bottom",
-        end: "bottom top",
+  useGSAP(
+    () => {
+      const trigger = ScrollTrigger.create({
+        trigger: ref.current,
+        start: 'top bottom',
+        end: 'bottom top',
         scrub: true,
-      },
-    })
-
-    return () => {
-      animation.kill()
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === element) {
-          trigger.kill()
-        }
+        animation: gsap.to(ref.current, {
+          y: () => -(window.innerHeight * speed),
+          ease: 'none',
+        }),
       })
-    }
-  }, [speed])
+      return () => trigger.kill()
+    },
+    { scope: ref, dependencies: [speed] }
+  )
 
   return (
     <div ref={ref} className={className}>
@@ -51,4 +36,3 @@ export function ParallaxSection({
     </div>
   )
 }
-

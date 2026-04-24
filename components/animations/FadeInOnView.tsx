@@ -1,7 +1,8 @@
-"use client"
+'use client'
 
-import { ReactNode, useRef, useEffect } from "react"
-import { gsap, ScrollTrigger } from "@/lib/gsap"
+import { ReactNode, useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 
 interface FadeInOnViewProps {
   children: ReactNode
@@ -9,44 +10,27 @@ interface FadeInOnViewProps {
   className?: string
 }
 
-export function FadeInOnView({ children, delay = 0, className = "" }: FadeInOnViewProps) {
+export function FadeInOnView({ children, delay = 0, className = '' }: FadeInOnViewProps) {
   const ref = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const element = ref.current
-    if (!element) return
-
-    gsap.registerPlugin(ScrollTrigger)
-
-    const animation = gsap.fromTo(
-      element,
-      {
-        opacity: 0,
-        y: 20,
-      },
-      {
-        opacity: 1,
-        y: 0,
-        duration: 0.6,
-        delay,
-        ease: "power2.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 80%",
-          toggleActions: "play none none none",
+  useGSAP(
+    () => {
+      const trigger = ScrollTrigger.create({
+        trigger: ref.current,
+        start: 'top 80%',
+        onEnter: () => {
+          gsap.fromTo(
+            ref.current,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, duration: 0.6, delay, ease: 'power2.out' }
+          )
         },
-      }
-    )
-
-    return () => {
-      animation.kill()
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === element) {
-          trigger.kill()
-        }
+        once: true,
       })
-    }
-  }, [delay])
+      return () => trigger.kill()
+    },
+    { scope: ref, dependencies: [delay] }
+  )
 
   return (
     <div ref={ref} className={className}>
@@ -54,4 +38,3 @@ export function FadeInOnView({ children, delay = 0, className = "" }: FadeInOnVi
     </div>
   )
 }
-

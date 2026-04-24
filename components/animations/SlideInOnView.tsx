@@ -1,66 +1,54 @@
-"use client"
+'use client'
 
-import { ReactNode, useRef, useEffect } from "react"
-import { gsap, ScrollTrigger } from "@/lib/gsap"
+import { ReactNode, useRef } from 'react'
+import { useGSAP } from '@gsap/react'
+import { gsap, ScrollTrigger } from '@/lib/gsap'
 
 interface SlideInOnViewProps {
   children: ReactNode
-  direction?: "left" | "right" | "up" | "down"
+  direction?: 'left' | 'right' | 'up' | 'down'
   delay?: number
-  className?: string
   distance?: number
+  className?: string
 }
 
-export function SlideInOnView({ 
-  children, 
-  direction = "up", 
-  delay = 0, 
-  className = "",
-  distance = 50
+const initialPositions = {
+  left: (d: number) => ({ x: -d, opacity: 0 }),
+  right: (d: number) => ({ x: d, opacity: 0 }),
+  up: (d: number) => ({ y: d, opacity: 0 }),
+  down: (d: number) => ({ y: -d, opacity: 0 }),
+}
+
+export function SlideInOnView({
+  children,
+  direction = 'up',
+  delay = 0,
+  distance = 50,
+  className = '',
 }: SlideInOnViewProps) {
   const ref = useRef<HTMLDivElement>(null)
 
-  useEffect(() => {
-    const element = ref.current
-    if (!element) return
-
-    gsap.registerPlugin(ScrollTrigger)
-
-    // Set initial position based on direction
-    const initialPosition: Record<string, { x?: number; y?: number; opacity: number }> = {
-      left: { x: -distance, opacity: 0 },
-      right: { x: distance, opacity: 0 },
-      up: { y: distance, opacity: 0 },
-      down: { y: -distance, opacity: 0 },
-    }
-
-    const animation = gsap.fromTo(
-      element,
-      initialPosition[direction],
-      {
-        x: 0,
-        y: 0,
-        opacity: 1,
-        duration: 0.8,
-        delay,
-        ease: "power3.out",
-        scrollTrigger: {
-          trigger: element,
-          start: "top 85%",
-          toggleActions: "play none none none",
+  useGSAP(
+    () => {
+      const trigger = ScrollTrigger.create({
+        trigger: ref.current,
+        start: 'top 85%',
+        onEnter: () => {
+          gsap.fromTo(ref.current, initialPositions[direction](distance), {
+            x: 0,
+            y: 0,
+            opacity: 1,
+            duration: 0.8,
+            delay,
+            ease: 'power3.out',
+          })
         },
-      }
-    )
-
-    return () => {
-      animation.kill()
-      ScrollTrigger.getAll().forEach((trigger) => {
-        if (trigger.vars.trigger === element) {
-          trigger.kill()
-        }
+        once: true,
       })
-    }
-  }, [direction, delay, distance])
+      return () => trigger.kill()
+    },
+    { scope: ref, dependencies: [direction, delay, distance] }
+  )
 
   return (
     <div ref={ref} className={className}>
@@ -68,4 +56,3 @@ export function SlideInOnView({
     </div>
   )
 }
-

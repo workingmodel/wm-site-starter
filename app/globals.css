@@ -70,7 +70,12 @@
     font-family: 'Stack Sans Text', sans-serif;
     font-weight: 200;
   }
-  h1, h2, h3, h4, h5, h6 {
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Stack Sans Headline', sans-serif;
     font-weight: 400;
   }
@@ -111,7 +116,7 @@
 
 /* Separator Pattern */
 .separator-pattern {
-  background-image: 
+  background-image:
     repeating-linear-gradient(
       45deg,
       var(--pattern-fg) 0,
@@ -134,7 +139,9 @@
       transparent 7.5px,
       transparent 14px
     );
-  background-size: 9.9px 9.9px, 9.9px 9.9px;
+  background-size:
+    9.9px 9.9px,
+    9.9px 9.9px;
   background-attachment: fixed;
 }
 
@@ -156,12 +163,21 @@
   background-image:
     linear-gradient(var(--pattern-fg), var(--pattern-fg)),
     linear-gradient(var(--pattern-fg), var(--pattern-fg)),
-    radial-gradient(circle at 22px 22px,
+    radial-gradient(
+      circle at 22px 22px,
       transparent 11px,
-      var(--pattern-fg) 11px, var(--pattern-fg) 12px,
-      transparent 12px);
-  background-size: 1px 44px, 44px 1px, 64px 64px;
-  background-position: 22px 0px, 0px 22px, 0 0;
+      var(--pattern-fg) 11px,
+      var(--pattern-fg) 12px,
+      transparent 12px
+    );
+  background-size:
+    1px 44px,
+    44px 1px,
+    64px 64px;
+  background-position:
+    22px 0px,
+    0px 22px,
+    0 0;
   background-repeat: no-repeat;
 }
 
@@ -177,18 +193,89 @@
   background-image:
     linear-gradient(var(--pattern-fg), var(--pattern-fg)),
     linear-gradient(var(--pattern-fg), var(--pattern-fg)),
-    radial-gradient(circle at 22px 22px,
+    radial-gradient(
+      circle at 22px 22px,
       transparent 11px,
-      var(--pattern-fg) 11px, var(--pattern-fg) 12px,
-      transparent 12px);
-  background-size: 1px 44px, 44px 1px, 64px 64px;
-  background-position: 22px 0px, 0px 22px, 0 0;
+      var(--pattern-fg) 11px,
+      var(--pattern-fg) 12px,
+      transparent 12px
+    );
+  background-size:
+    1px 44px,
+    44px 1px,
+    64px 64px;
+  background-position:
+    22px 0px,
+    0px 22px,
+    0 0;
+  background-repeat: no-repeat;
+}
+
+/* Bottom-left circle with cross */
+.section-responsive .bottom-decoration-left {
+  position: absolute;
+  bottom: 30px;
+  left: 30px;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(var(--pattern-fg), var(--pattern-fg)),
+    linear-gradient(var(--pattern-fg), var(--pattern-fg)),
+    radial-gradient(
+      circle at 22px 22px,
+      transparent 11px,
+      var(--pattern-fg) 11px,
+      var(--pattern-fg) 12px,
+      transparent 12px
+    );
+  background-size:
+    1px 44px,
+    44px 1px,
+    64px 64px;
+  background-position:
+    22px 0px,
+    0px 22px,
+    0 0;
+  background-repeat: no-repeat;
+}
+
+/* Bottom-right circle with cross */
+.section-responsive .bottom-decoration-right {
+  position: absolute;
+  bottom: 30px;
+  right: 30px;
+  width: 64px;
+  height: 64px;
+  pointer-events: none;
+  z-index: 1;
+  background-image:
+    linear-gradient(var(--pattern-fg), var(--pattern-fg)),
+    linear-gradient(var(--pattern-fg), var(--pattern-fg)),
+    radial-gradient(
+      circle at 22px 22px,
+      transparent 11px,
+      var(--pattern-fg) 11px,
+      var(--pattern-fg) 12px,
+      transparent 12px
+    );
+  background-size:
+    1px 44px,
+    44px 1px,
+    64px 64px;
+  background-position:
+    22px 0px,
+    0px 22px,
+    0 0;
   background-repeat: no-repeat;
 }
 
 @media (max-width: 768px) {
   .section-responsive::before,
-  .section-responsive::after {
+  .section-responsive::after,
+  .section-responsive .bottom-decoration-left,
+  .section-responsive .bottom-decoration-right {
     display: none;
   }
 }
@@ -329,7 +416,7 @@
 }
 
 .fade-in-delay-5 {
-  animation-delay: 1.0s;
+  animation-delay: 1s;
   opacity: 0;
 }
 
@@ -384,4 +471,3 @@
 .group:hover .icon-hover {
   transform: scale(1.1);
 }
-
